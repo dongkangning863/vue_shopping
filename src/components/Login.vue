@@ -61,7 +61,6 @@ export default {
       this.$refs.loginFormRef.validate(async flag => {
         if (!flag) return
         const { data: res } = await this.$http.post('login', this.loginForm)
-        console.log(res)
         if (res.meta.status === 400) {
           this.$message.error('登陆失败，用户名或密码错误！')
         } else if (res.meta.status === 200) {
