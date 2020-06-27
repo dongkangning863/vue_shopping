@@ -79,7 +79,8 @@
                           placement="top">
                 <el-button type="warning"
                            icon="el-icon-setting"
-                           size="mini"></el-button>
+                           size="mini"
+                           @click="setUser(scope.row)"></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -157,6 +158,30 @@
                      @click="updateUser(editForm.id)">修 改</el-button>
         </span>
       </el-dialog>
+      <!-- 设置用户dialog -->
+      <el-dialog title="设置用户"
+                 :visible.sync="setDialogVisible"
+                 width="30%"
+                 @close="setDialogClose">
+        <p>用户名：{{userInfo.username}}</p>
+        <p>用户角色：{{userInfo.role_name}}</p>
+        <p>请选择用户角色：
+          <el-select v-model="selectedRole"
+                     placeholder="请选择">
+            <el-option v-for="item in roleList"
+                       :key="item.id"
+                       :label="item.roleName"
+                       :value="item.id">
+            </el-option>
+          </el-select>
+        </p>
+        <span slot="footer"
+              class="dialog-footer">
+          <el-button @click="setDialogVisible = false">取 消</el-button>
+          <el-button type="primary"
+                     @click="setRole">修 改</el-button>
+        </span>
+      </el-dialog>
 
     </h3>
   </div>
@@ -178,9 +203,13 @@ export default {
     }
     return {
       userlist: [],
+      userInfo: {},
+      roleList: [],
+      selectedRole: '',
       total: 0,
       addDialogVisible: false,
       editDialogVisible: false,
+      setDialogVisible: false,
       addForm: {
         username: '',
         password: '',
@@ -321,6 +350,35 @@ export default {
         // 刷新用户列表
         this.getUserList()
       }
+    },
+    // 设置用户
+    setUser: async function (userInfo) {
+      // 将用户信息保存到data中
+      this.userInfo = userInfo
+      // 获取角色列表
+      const { data: res } = await this.$http.get('roles')
+      this.roleList = res.data
+      console.log(this.roleList)
+      // 显示设置用户dialog
+      this.setDialogVisible = true
+    },
+    setRole: async function () {
+      if (!this.selectedRole) {
+        return this.$message.error('请选择用户的角色！')
+      }
+      const { data: res } = await this.$http.put('users/' + this.userInfo.id + '/role', { rid: this.selectedRole })
+      if (res.meta.status !== 200) {
+        this.$message.error('设置用户角色失败')
+      }
+      this.$message.success('设置用户角色成功！')
+      // 关闭dialog
+      this.setDialogVisible = false
+      // 刷新用户列表
+      this.getUserList()
+    },
+    setDialogClose: function () {
+      this.selectedRole = ''
+      this.userInfo = {}
     }
   }
 }
