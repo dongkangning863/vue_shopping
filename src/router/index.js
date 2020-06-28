@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import tableTree from 'vue-table-with-tree-grid'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 import Welcome from '../components/Welcome.vue'
 import Userlist from '../components/Userlist.vue'
 import Rights from '../components/Rights.vue'
 import Role from '../components/Role.vue'
+import Cate from '../components/goods/Cate.vue'
 
 Vue.use(VueRouter)
+Vue.component('tableTree', tableTree)
 
 const routes = [
   { path: '/', redirect: '/login' },
@@ -20,7 +23,8 @@ const routes = [
       { path: '/welcome', component: Welcome },
       { path: '/users', component: Userlist },
       { path: '/rights', component: Rights },
-      { path: '/roles', component: Role }
+      { path: '/roles', component: Role },
+      { path: '/categories', component: Cate }
     ]
   }
 ]
