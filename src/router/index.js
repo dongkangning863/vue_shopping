@@ -8,6 +8,7 @@ import Userlist from '../components/Userlist.vue'
 import Rights from '../components/Rights.vue'
 import Role from '../components/Role.vue'
 import Cate from '../components/goods/Cate.vue'
+import Params from '../components/goods/Params.vue'
 
 Vue.use(VueRouter)
 Vue.component('tableTree', tableTree)
@@ -24,7 +25,8 @@ const routes = [
       { path: '/users', component: Userlist },
       { path: '/rights', component: Rights },
       { path: '/roles', component: Role },
-      { path: '/categories', component: Cate }
+      { path: '/categories', component: Cate },
+      { path: '/params', component: Params }
     ]
   }
 ]
