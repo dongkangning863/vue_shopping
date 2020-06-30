@@ -14,3 +14,6 @@ html,body,#app{
 .el-cascader-menu {
   height: 300px;
 }
+.quill-editor{
+  height: 300px;
+}
