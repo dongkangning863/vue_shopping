@@ -12,6 +12,7 @@ import Params from '../components/goods/Params.vue'
 import List from '../components/goods/List.vue'
 import Add from '../components/goods/Add.vue'
 import Orderlist from '../components/orders/Orderlist.vue'
+import Report from '../components/report/Report.vue'
 
 Vue.use(VueRouter)
 Vue.component('tableTree', tableTree)
@@ -32,7 +33,8 @@ const routes = [
       { path: '/params', component: Params },
       { path: '/goods', component: List },
       { path: '/goods/add', component: Add },
-      { path: '/orders', component: Orderlist }
+      { path: '/orders', component: Orderlist },
+      { path: '/reports', component: Report }
     ]
   }
 ]
